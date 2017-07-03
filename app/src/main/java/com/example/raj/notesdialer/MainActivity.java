@@ -6,13 +6,27 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         Button fCall = (Button) findViewById(R.id.button20);
         Button fClear = (Button) findViewById(R.id.button37);
         Button fBack = (Button) findViewById(R.id.button6);
+
+        Button oHistory = (Button) findViewById(R.id.button2);
 
         //final String number = "";
         final StringBuffer number = new StringBuffer();
@@ -74,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
         });
         n5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                number.insert(number.length(), "5");
+               number.insert(number.length(), "5");
                 display.setText(number);
+
 
             }
         });
@@ -131,37 +148,74 @@ public class MainActivity extends AppCompatActivity {
         fCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" + number.toString()));
+                callIntent.setData(Uri.parse("tel:" +Uri.encode( number.toString())));
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
+          //Activiteis to gain permission.
                     return;
                 }
                 startActivity(callIntent);
             }
         });
-        fClear.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v)
-            {
-                number.delete(0,number.length());
+        fClear.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                number.delete(0, number.length());
                 display.setText("");
             }
         });
-        fBack.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v)
-            {
-                if(number.length()!=0) {
+        fBack.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (number.length() != 0) {
                     number.delete(number.length() - 1, number.length());
                     display.setText(number);
                 }
             }
         });
+        oHistory.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent init;
+                init = new Intent(MainActivity.this,callLog.class);
+                MainActivity.this.startActivity(init);
+            }
+                });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }
