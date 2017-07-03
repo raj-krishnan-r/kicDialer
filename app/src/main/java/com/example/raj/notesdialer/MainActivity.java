@@ -147,13 +147,7 @@ public class MainActivity extends AppCompatActivity {
         });
         fCall.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:" +Uri.encode( number.toString())));
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-          //Activiteis to gain permission.
-                    return;
-                }
-                startActivity(callIntent);
+                makeCall(number.toString());
             }
         });
         fClear.setOnClickListener(new View.OnClickListener() {
@@ -217,5 +211,16 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    public void makeCall(String number)
+    {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" +Uri.encode( number)));
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            //Activiteis to gain permission.
+            return;
+        }
+        startActivity(callIntent);
     }
 }

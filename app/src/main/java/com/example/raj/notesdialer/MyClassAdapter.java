@@ -23,7 +23,7 @@ public class MyClassAdapter extends ArrayAdapter<histCont> {
         private TextView direction;
         private TextView duration;
         private TextView ddate;
-
+        private TextView contName;
 
 
     }
@@ -43,6 +43,7 @@ public class MyClassAdapter extends ArrayAdapter<histCont> {
             viewHolder.direction=(TextView) convertview.findViewById(R.id.rowDirection);
             viewHolder.duration=(TextView) convertview.findViewById(R.id.rowDuration);
             viewHolder.ddate=(TextView) convertview.findViewById(R.id.rowDate);
+            viewHolder.contName=(TextView) convertview.findViewById(R.id.rowName);
 
             convertview.setTag(viewHolder);
         }
@@ -57,6 +58,7 @@ public class MyClassAdapter extends ArrayAdapter<histCont> {
             viewHolder.direction.setText(item.getDirection());
             viewHolder.duration.setText(item.getDuration());
             viewHolder.ddate.setText(item.getD());
+            viewHolder.contName.setText(item.getName());
 
         }
         return convertview;

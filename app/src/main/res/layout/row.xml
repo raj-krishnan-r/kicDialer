@@ -9,9 +9,24 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></LinearLayout>
+
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <TextView
+                android:text="Reshma Sreekumar"
+                android:layout_width="match_parent"
+                android:layout_margin="4dp"
+
+                android:layout_height="wrap_content"
+                android:id="@+id/rowName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title"
+                android:textColor="?android:attr/editTextColor" />
 
             <TextView
                 android:text="TextView"
@@ -19,17 +34,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rowPhone"
                 tools:text="9497336650"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                android:textSize="20sp" />
+                android:layout_margin="4dp"
 
-            <TextView
-                android:text="05/04/2017 11:59 AM"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rowDate"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textAlignment="textEnd"
-                android:textSize="20sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
 
             <TextView
                 android:text="Incoming"
@@ -38,13 +45,27 @@
                 android:id="@+id/rowDirection"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textAlignment="textEnd"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:textColor="@android:color/holo_green_dark" />
+
+            <TextView
+                android:text="05/04/2017 11:59 AM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rowDate"
+                android:layout_margin="2dp"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Notification.Time"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:text="Duraction : 25 Sec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rowDuration"
+                android:layout_margin="2dp"
+
                 android:textAlignment="textEnd" />
 
         </LinearLayout>
